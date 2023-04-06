@@ -12,9 +12,9 @@ RSpec.describe Like, type: :model do
     let(:post) { FactoryBot.create(:post) }
 
     it 'updates likes_count on associated post' do
-      expect {
-        FactoryBot.create(:like, post: post)
-      }.to change { post.reload.likes_count }.by(1)
+      expect do
+        FactoryBot.create(:like, post:)
+      end.to change { post.reload.likes_count }.by(1)
     end
   end
 end
