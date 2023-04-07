@@ -1,6 +1,6 @@
 class Comment < ApplicationRecord
-  belongs_to :post
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'
+  belongs_to :post, counter_cache: true
 
   validates :text, presence: true
 
@@ -9,6 +9,6 @@ class Comment < ApplicationRecord
   private
 
   def update_comment_counter
-    post.update(comments_count: post.comments.count)
+    post.update(comments_counter: post.comments.count)
   end
 end

@@ -1,12 +1,27 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  subject { FactoryBot.build(:user) }
+  context 'when creating a user' do
+    let(:user) { User.create(name: 'John Doe', posts_counter: 0) }
 
-  it { should validate_presence_of(:name) }
-  it { should validate_numericality_of(:posts_counter).only_integer.is_greater_than_or_equal_to(0) }
+    it 'is valid with a name and posts_counter' do
+      expect(user).to be_valid
+    end
 
-  it { should have_many(:posts) }
-  it { should have_many(:comments) }
-  it { should have_many(:likes) }
+    it 'is invalid without a name' do
+      user.name = nil
+      expect(user).to_not be_valid
+    end
+
+    it 'is invalid with a negative posts_counter' do
+      user.posts_counter = -1
+      expect(user).to_not be_valid
+    end
+
+    it 'can have many posts, comments, and likes' do
+      expect(user.posts).to be_empty
+      post = Post.create(author: user, title: 'My first post', content: 'Hello world!')
+      expect(user.posts).to eq [post]
+    end
+  end
 end

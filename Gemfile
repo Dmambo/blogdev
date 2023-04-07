@@ -12,6 +12,11 @@ gem 'sprockets-rails'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
 
+
+# gem 'shoulda-matchers'
+
+# gem 'factory_bot_rails'
+
 # Use the Puma web server [https://github.com/puma/puma]
 gem 'puma', '~> 5.0'
 
