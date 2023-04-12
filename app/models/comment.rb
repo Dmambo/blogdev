@@ -9,6 +9,6 @@ class Comment < ApplicationRecord
   private
 
   def update_comment_counter
-    post.update(comments_counter: post.comments.count)
+    post.update(comments_count: post.comments.count)
   end
 end
