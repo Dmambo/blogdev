@@ -1,45 +1,45 @@
 <!DOCTYPE html>
 <html>
   <head>
-  <link rel="stylesheet" href="/assets/stylesheets/application.css">
+    <link rel="stylesheet" href="/assets/stylesheets/application.css">
     <title>Home</title>
   </head>
 
   <body>
     <% if @users %>
-    <section class="row wrap borded user-heading">
-  <img class="imgs" src="<%= @users.photo %>" alt="User Image" />
-  <div class="column post-description">
-    <h2><%= @users.name %></h2>
-    <p class="number-post">Number of posts: <%= @users.posts.count %></p>
-  </div>
-</section>
-
-
-    <% @posts.each do |post| %>
-      <li class="column borded">
-        <div class="post">
-          <h3><%= post.title %></h3>
-          <p><%= post.content %></p>
-          <div class="row btns-post">
-            <p>Comments: <%= post.comments.count %></p>
-            <p>Likes: <%= post.likes.count %></p>
-          </div>
+      <section class="row wrap borded user-heading">
+        <img class="imgs" src="<%= @users.photo %>" alt="User Image" />
+        <div class="column post-description">
+          <h2><%= @users.name %></h2>
+          <p class="number-post">Number of posts: <%= @users.posts.count %></p>
         </div>
-        <ul class="no-style list-comment borded">
-          <% post.comments.each do |comment| %>
-            <li><%= comment.author.name %>: <%= comment.text %></li>
+      </section>
 
-          <% end %>
-        </ul>
-      </li>
-    <% end %>
+      <% @posts.each do |post| %>
+        <li class="column borded">
+          <div class="post">
+            <h3><%= post.title %></h3>
+            <p><%= post.content %></p>
+            <div class="row btns-post">
+              <p>Comments: <%= post.comments.count %></p>
+              <p>Likes: <%= post.likes.count %></p>
+            </div>
+          </div>
+          <ul class="no-style list-comment borded">
+            <% post.comments.each do |comment| %>
+              <li><%= comment.author.name %>: <%= comment.text %></li>
+            <% end %>
+          </ul>
+          <div class="row btns-post">
+            <a href="<%= "/users/#{@users.id}/posts/#{post.id}" %>" class="no-style">Read more</a>
+          </div>
+        </li>
+      <% end %>
 
-    <button class="btn-show-post">
-        <a href=<%= "/users/#{@users.id}/posts/new"%>
-        class="no-style">Create A Posts</a>
+      <button class="btn-show-post">
+        <a href=<%= "/users/#{@users.id}/posts/new"%> class="no-style">Create A Post</a>
       </button>
-      
+
       <a href=<%= "/users/#{@users.id}" %> >
         <button class="btn-show-post">Back</button>
       </a>

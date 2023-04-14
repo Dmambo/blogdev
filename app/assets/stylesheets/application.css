@@ -3,6 +3,11 @@
   padding: 0;
 }
 
+a {
+  text-decoration: none;
+  color: black;
+}
+
 body {
   padding: 24px;
 }
@@ -177,4 +182,25 @@ h3 {
 
 .btn-show-post {
   margin-top: 24px;
+}
+
+button {
+  padding: 5px;
+  cursor: pointer;
+  border: 10px;
+}
+
+.column.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  margin-left: 5px;
+}
+
+.like-btn {
+  padding: 5px;
+  cursor: pointer;
+  border: 10px;
 }
