@@ -9,7 +9,7 @@
     <ul class="column no-style list-post">
       <% @users.each do |user| %>
         <li class="row wrap post borded">
-          <img class="imgs" src="<%= @users.photo %>" alt="User Image" />
+          <img class="imgs" src="<%= user.photo %>" alt="User Image" />
           <div class="column post-description">
             <h2><%= user.name %></h2>
             <p class="number-post">Number of post: <%= user.posts.count %></p>

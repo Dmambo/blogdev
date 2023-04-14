@@ -35,7 +35,14 @@
       </li>
     <% end %>
 
-    <button class="btn-show-post">Pagination</button>
+    <button class="btn-show-post">
+        <a href=<%= "/users/#{@users.id}/posts/new"%>
+        class="no-style">Create A Posts</a>
+      </button>
+      
+      <a href=<%= "/users/#{@users.id}" %> >
+        <button class="btn-show-post">Back</button>
+      </a>
     <% end %>
   </body>
 </html>

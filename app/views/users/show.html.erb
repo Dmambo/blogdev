@@ -40,6 +40,15 @@
       </ul>
       <% end %>
       <button class="btn-show-post">See All Posts</button>
+      <button class="btn-show-post">
+        <a href=<%= "/users/#{@users.id}/posts/new"%>
+        class="no-style">Create A Posts</a>
+      </button>
+      <button class="btn-show-post">
+        <a href=<%= "/users" %> 
+        class="no-style"> Back
+        </a>
+      </button>
     </div>
   </body>
 </html>
