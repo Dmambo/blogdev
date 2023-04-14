@@ -22,19 +22,32 @@
               <h3><%= post.title %></h3>
               <p><%= post.text %></p>
               <div class="row btns-post">
-                <p>Comments: <%= post.comments.count %></p>
-                <p>Likes: X</p>
-              </div>
+  <p>Comments: <%= @post.comments.count %></p>
+  <p>Likes: <span id="like-count-<%= @post.id %>"><%= @post.likes.count %></span></p>
+      <%= form_with model: Like.new, local: true, url: "/users/#{@users.id}/posts/#{@post.id}/likes", 
+        html: {class: "column btn"} do |f| %>
+        <%= f.submit "Like" ,class: "like-btn" %>
+      <% end %>
+
+</div>
+
             </div>
             <ul class="no-style list-comment borded">
+
               <% post.comments.each do |comment| %>
-                <li><%= comment.author.name %>, Comment: <%= comment.text %></li>
+                <li><%= comment.author.name %>, Comment: <%= comment.text %>         
+                </li>
               <% end %>
+               <button>
+                <a href="<%= new_user_post_comment_path(@users, post) %>" class="no-style">Add Comment</a>
+                </button>
             </ul>
           </li>
         <% end %>
       </ul>
+      <a href=<%= "/users/#{@users.id}/posts/"%> >
       <button class="btn-show-post">Pagination</button>
+      </a>
     </section>
     <% end %>
   </body>
