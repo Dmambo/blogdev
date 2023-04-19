@@ -27,7 +27,7 @@
     <div class="flex-center column">
       <% if @users %>
         <ul class="max-width">
-          <% @users.includes(:posts).each do |user| %>
+          <% User.includes(:posts).each do |user| %>
             <% user.posts.each do |post| %>
               <li class="column borded post">
                 <h3><%= post.title %></h3>

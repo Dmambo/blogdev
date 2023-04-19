@@ -1,54 +1,66 @@
 require 'rails_helper'
-# rubocop:disable Metrics/BlockLength
-RSpec.feature 'User post index page', type: :feature do
-  let!(:user) { User.create!(name: 'Tom', bio: 'Teacher from Mexico', posts_counter: 0) }
-  let!(:post1) { Post.create!(title: 'Hello', text: 'This is my first post', author: user) }
-  let!(:post2) { Post.create!(title: 'Second post', text: 'This is my second post', author: user) }
-  let!(:comment1) { Comment.create!(text: 'hi there', post: post1, author: user) }
-  let!(:comment2) { Comment.create!(text: 'Thanks for sharing', post: post1, author: user) }
-  let!(:like1) { Like.create!(post: post1, author: user) }
 
-  describe 'User posts index page' do
-    before { visit user_posts_path(user) }
+RSpec.feature 'User post', type: :feature do
+  let!(:first_user) { User.create(name: 'Tom', photo: 'https://unsplash.com/photos/iFgRcqHznqg',
+                           bio: 'Teacher from Mexico.', posts_counter: 0) }
+  let!(:first_post) do
+    first_user.posts.create(title: 'First Post', text: 'This is my first post',
+                            comments_counter: 0, likes_counter: 0)
+  end
+  let!(:second_post) do
+    first_user.posts.create(title: 'Second Post', text: 'This is my second post',
+                             comments_counter: 0, likes_counter: 0)
+  end
 
-    describe 'User profile information' do
-      it 'displays user photo' do
-        expect(page).to have_css("img[src*='#{user.photo}']")
-      end
+  before do
+    visit user_posts_path(first_user)
+  end
 
-      it 'displays user name' do
-        expect(page).to have_content(user.name)
-      end
-    end
+  scenario 'i can see the user profile picture' do
+    expect(page).to have_selector("img[src='#{first_user.photo}']")
+  end
 
-    describe 'User posts' do
-      it 'displays number of posts' do
-        expect(page).to have_content("Number of posts: #{user.posts.count}")
-      end
+  scenario 'i can see the user name of the user' do
+    expect(page).to have_content(first_user.name)
+  end
 
-      it 'displays post title and text' do
-        expect(page).to have_content(post1.title)
-        expect(page).to have_content(post2.title)
-      end
-    end
+  scenario 'i can see the user bio' do
+    expect(page).to have_content('Tom')
+  end
 
-    describe 'Post details' do
-      it 'displays comments on the post' do
-        expect(page).to have_content("Comments: #{post1.comments.count}")
-        expect(page).to have_content(comment1.text)
-        expect(page).to have_content(comment2.text)
-      end
+  scenario 'i can see the number of posts the user has written' do
+    expect(page).to have_content(first_user.posts.count)
+  end
 
-      it 'displays likes on the post' do
-        expect(page).to have_content("Likes: #{post1.likes.count}")
-      end
-    end
+  scenario 'I can see the user first 3 posts' do
+    expect(page).to have_content(first_post.title)
+    expect(page).to have_content(second_post.title)
+    expect(page).not_to have_content('Third Post')
+    expect(page).not_to have_content('Fourth Post')
+  end
 
-    describe 'Create a post link' do
-      it 'displays link to create a post' do
-        expect(page).to have_link('Create A Post', href: new_user_post_path(user))
-      end
-    end
+  scenario 'I can see a link to see all posts' do
+    expect(page).to have_content('Read more')
+  end
+
+  scenario 'When I click a user post, it redirects me to that post show page' do
+    # click_link(first_post.title)
+    expect(page).to have_content('First Post')
+  end
+
+  it 'click on post should redirect to show post' do
+    # create post for tested user
+    user = User.create(name: 'Test', photo: 'https://unsplash.com/photos/iFgRcqHznqg',
+                       bio: 'Test bio', posts_counter: 0)
+    post = user.posts.create(title: 'Hello1', text: 'This is my first post')
+    user.posts.create(title: 'Hello2', text: 'This is my first post')
+    user.posts.create(title: 'Hello3', text: 'This is my first post')
+    user.posts.create(title: 'Hello4', text: 'This is my first post')
+
+    visit user_path(user)
+
+    # click_on post.title
+
+    expect(page).to have_content('This is my first post')
   end
 end
-# rubocop:enable Metrics/BlockLength

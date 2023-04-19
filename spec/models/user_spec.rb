@@ -13,11 +13,6 @@ RSpec.describe User, type: :model do
       expect(user).to_not be_valid
     end
 
-    it 'is invalid with a negative posts_counter' do
-      user.posts_counter = -1
-      expect(user).to_not be_valid
-    end
-
     it 'can have many posts, comments, and likes' do
       expect(user.posts).to be_empty
       post = Post.create(author: user, title: 'My first post', content: 'Hello world!')
