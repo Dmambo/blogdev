@@ -1,25 +1,22 @@
-<!DOCTYPE html>
-<html>
-  <head>
-  <link rel="stylesheet" href="/assets/stylesheets/application.css">
+<head>
+    <link rel="stylesheet" href="/assets/stylesheets/application.css">
     <title>Blog Home</title>
   </head>
 
   <body>
     <ul class="column no-style list-post">
-      <% @users.each do |user| %>
+      <% @users.includes(:posts).each do |user| %>
         <li class="row wrap post borded">
-        <a  href="<%= user_posts_path(user) %>">
-          <img class="imgs" src="<%= user.photo %>" alt="User Image" />
-          <div class="column post-description">
-            <h2><%= user.name %></h2>
-            </a>
-            <p class="number-post">Number of post: <%= user.posts.count %></p>
-            <p class="bio"><%= user.bio %></p>
-          </div>
-        
+          <a href="<%= user_posts_path(user) %>">
+            <img class="imgs" src="<%= user.photo %>" alt="User Image" />
+            <div class="column post-description">
+              <h2><%= user.name %></h2>
+              </a>
+              <p class="number-post">Number of post: <%= user.posts.size %></p>
+              <p class="bio"><%= user.bio %></p>
+            </div>
+          
         </li>
       <% end %>
     </ul>
   </body>
-</html>

@@ -15,7 +15,7 @@
         </div>
       </section>
 
-      <% @posts.each do |post| %>
+      <% @posts.includes(:author, :comments, :likes).each do |post| %>
         <li class="column borded">
           <div class="post">
             <h3><%= post.title %></h3>
@@ -31,7 +31,7 @@
             <% end %>
           </ul>
           <div class="row btns-post">
-            <a href="<%= "/users/#{@users.id}/posts/#{post.id}" %>" class="no-style">Read more</a>
+            <a href="<%= "/users/#{post.author.id}/posts/#{post.id}" %>" class="no-style">Read more</a>
           </div>
         </li>
       <% end %>
