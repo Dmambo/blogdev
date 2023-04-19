@@ -1,15 +1,17 @@
 require 'rails_helper'
-
+# rubocop:disable Metrics/BlockLength
 RSpec.feature 'User post', type: :feature do
-  let!(:first_user) { User.create(name: 'Tom', photo: 'https://unsplash.com/photos/iFgRcqHznqg',
-                           bio: 'Teacher from Mexico.', posts_counter: 0) }
+  let!(:first_user) do
+    User.create(name: 'Tom', photo: 'https://unsplash.com/photos/iFgRcqHznqg',
+                bio: 'Teacher from Mexico.', posts_counter: 0)
+  end
   let!(:first_post) do
     first_user.posts.create(title: 'First Post', text: 'This is my first post',
                             comments_counter: 0, likes_counter: 0)
   end
   let!(:second_post) do
     first_user.posts.create(title: 'Second Post', text: 'This is my second post',
-                             comments_counter: 0, likes_counter: 0)
+                            comments_counter: 0, likes_counter: 0)
   end
 
   before do
@@ -52,15 +54,13 @@ RSpec.feature 'User post', type: :feature do
     # create post for tested user
     user = User.create(name: 'Test', photo: 'https://unsplash.com/photos/iFgRcqHznqg',
                        bio: 'Test bio', posts_counter: 0)
-    post = user.posts.create(title: 'Hello1', text: 'This is my first post')
     user.posts.create(title: 'Hello2', text: 'This is my first post')
     user.posts.create(title: 'Hello3', text: 'This is my first post')
     user.posts.create(title: 'Hello4', text: 'This is my first post')
 
     visit user_path(user)
 
-    # click_on post.title
-
     expect(page).to have_content('This is my first post')
   end
 end
+# rubocop:enable Metrics/BlockLength
