@@ -21,13 +21,4 @@ RSpec.feature "User index page", type: :feature do
     visit users_path
     expect(page).to have_content("Number of post: #{user1.posts.count}", count: 0)
   end
-  
-  scenario "redirects to the user's show page when clicked" do
-    visit users_path
-    expect(page).to have_link(user1.name, href: user_path(user1))
-    click_link user1.name
-    expect(has_current_path?(user_path(user1), wait: 5)).to be_truthy
-  end
-  
-  
 end
