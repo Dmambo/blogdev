@@ -12,10 +12,6 @@ gem 'sprockets-rails'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
 
-# gem 'shoulda-matchers'
-
-# gem 'factory_bot_rails'
-
 # Use the Puma web server [https://github.com/puma/puma]
 gem 'puma', '~> 5.0'
 
@@ -30,7 +26,9 @@ gem 'stimulus-rails'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem 'jbuilder'
-
+gem 'rails-controller-testing'
+gem 'rubocop'
+gem 'sass-rails'
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 
@@ -46,8 +44,6 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
 
-gem 'rails-controller-testing'
-
 # Use Sass to process CSS
 # gem "sassc-rails"
 
@@ -57,7 +53,6 @@ gem 'rails-controller-testing'
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri mingw x64_mingw]
-  gem 'rails-erd'
   gem 'rspec-rails'
 end
 

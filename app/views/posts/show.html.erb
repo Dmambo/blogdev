@@ -1,50 +1,35 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" href="/assets/stylesheets/application.css">
-    <title>Home</title>
-  </head>
-
-  <body>
-   <% if @users %>
-    <section class="row wrap borded @users-heading">
-      <div class="column post-description">
-        <h2><%= @users.name %></h2>
-        <p class="number-post">Number of posts: <%= @users.posts.count %></p>
-      </div>
-    </section>
-
-    <section class="flex-center column">
-      <ul class="max-width list-post">
-        <% @users.posts.includes(:comments, :author, :likes).each do |post| %>
-          <li class="column borded">
-            <div class="post">
-              <h3><%= post.title %></h3>
-              <p><%= post.text %></p>
-              <div class="row btns-post">
-                <p>Comments: <%= post.comments.count %></p>
-                <p>Likes: <span id="like-count-<%= post.id %>"><%= post.likes.count %></span></p>
-                <%= form_with model: Like.new, local: true, url: "/users/#{post.author.id}/posts/#{post.id}/likes", 
-                html: {class: "column btn"} do |f| %>
-                  <%= f.submit "Like" ,class: "like-btn" %>
-                <% end %>
-              </div>
+<main>
+    <div class="single-post container">
+        <header class="post-header">
+        <h1 id="post-title">
+            <%= @post.title%> by <%= @post.author.name%>
+        </h1>
+        <div class="post-meta">
+            <span>Comments: <%= @post.comments_counter%>, </span>
+            <span class="likes">Likes: <%= @post.likes_counter%></span>
+        </div>
+        </header>
+        <hr>
+        <div class="post-body">
+        <%= @post.text%>
+        </div>
+        <hr style="width:66%; min-width: 300px;">
+        <footer class="post-footer">
+        <div class="post-interactions">
+            <%= form_with model: @like, url: user_post_likes_path(1, @post), scope: :like do |form|%>
+                <%= form.submit 'Like post', class: 'button' %>
+            <% end %>
+            <%= link_to "Comment", new_user_post_comment_path( post_id: @post.id), { class: "button" } %>
+        </div>
+        <div class="comments">
+                <h5>Comments</h5>
+                <% @comments=Post.find(@post.id).comments %>
+                    <% @comments.includes(:author).each do |comment| %>
+                        <div  id="single-comment">
+                            <span> <%= comment.author.name %> : <%= comment.text %></span>
+                        </div>
+                    <% end %>
             </div>
-            <ul class="no-style list-comment borded">
-              <% post.comments.each do |comment| %>
-                <li><%= comment.author.name %>, Comment: <%= comment.text %> </li>
-              <% end %>
-              <button>
-                <a href="<%= new_user_post_comment_path(post.author, post) %>" class="no-style">Add Comment</a>
-              </button>
-            </ul>
-          </li>
-        <% end %>
-      </ul>
-      <a href=<%= "/users/#{@users.id}/posts/"%> >
-        <button class="btn-show-post">Pagination</button>
-      </a>
-    </section>
-    <% end %>
-  </body>
-</html>
+        </footer>
+    </div>
+</main>

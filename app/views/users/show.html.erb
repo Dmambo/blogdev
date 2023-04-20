@@ -1,53 +1,39 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" href="/assets/stylesheets/application.css">
-    <title>Home</title>
-  </head>
-
-  <body>
-    <section class="row wrap borded user-heading">
-      <% if @users %>
-        <img src="<%= @users.photo %>" alt="User Image" />
-    
-        <div class="column post-description">
-          <h2><%= @users.name %></h2>
-          <p class="number-post">Number of post: <%= @users.posts.count %></p>
-        </div>
-      <% end %>
-    </section>
-
-    <section class="column borded bio">
-      <h2>Bio</h2>
-      <% if @users %>
-        <p><%= @users.bio %></p>
-      <% end %>
-    </section>
-
-    <div class="flex-center column">
-      <% if @users %>
-        <ul class="max-width">
-          <% User.includes(:posts).each do |user| %>
-            <% user.posts.each do |post| %>
-              <li class="column borded post">
-                <h3><%= post.title %></h3>
-                <p><%= post.text %></p>
-                <div class="row btns-post">
-                  <p>Comments: <%= post.comments.count %></p>
-                  <p>Likes: <%= post.likes.count %></p>
-                </div>
-              </li>
+<main>
+    <div class="single-user container">
+        <section class="user">
+            <img src=<%= @user.photo %> alt="User Photo" class="user-photo">
+            <div class="user-detail">
+                <h2 class="user-name"><%= @user.name%></h2>
+                <h4 class="post-count">Number of posts: <%= @user.posts_counter %> </h4>
+            </div>
+        </section>
+        <hr>
+        <section class="bio">
+            <h3>Bio</h3>
+            <p><%= @user.bio %></p>
+        <section>
+        <hr>
+        <section class="posts container">
+            <h3>Recent Posts</h3>
+            <div class="posts">
+            <% @user.most_recent_posts.each do |post| %>
+            
+                <div class="post">
+                    <div class="post-content">
+                        <h4><a href="<%=@user.id%>/posts/<%=post.id%>"><%= post.title %></a></h4>
+                        <p><%= truncate(post.text, length: 200) %></p>
+                    </div>
+                    <footer class="post-footer">
+                    <span class="comment-count">Comments: <%= post.comments_counter %></span>, <span class="like-count">Likes: <%= post.likes_counter %></span>
+                    </footer>
+                    </div>
+               
+                
+                
             <% end %>
-          <% end %>
-        </ul>
-      <% end %>
-      <button class="btn-show-post">See All Posts</button>
-      <button class="btn-show-post">
-        <a href="<%= new_user_post_path(@users) %>" class="no-style">Create A Post</a>
-      </button>
-      <button class="btn-show-post">
-        <a href="<%= users_path %>" class="no-style"> Back </a>
-      </button>
+            </div>
+            <a href="<%=@user.id%>/posts/" class="button">View all posts</a>
+        </section>
     </div>
-  </body>
-</html>
+
+</main>

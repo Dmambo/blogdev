@@ -1,48 +1,44 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" href="/assets/stylesheets/application.css">
-    <title>Home</title>
-  </head>
-
-  <body>
-    <% if @users %>
-      <section class="row wrap borded user-heading">
-        <img class="imgs" src="<%= @users.photo %>" alt="User Image" />
-        <div class="column post-description">
-          <h2><%= @users.name %></h2>
-          <p class="number-post">Number of posts: <%= @users.posts.count %></p>
-        </div>
-      </section>
-
-      <% @posts.includes(:author, :comments, :likes).each do |post| %>
-        <li class="column borded">
-          <div class="post">
-            <h3><%= post.title %></h3>
-            <p><%= post.content %></p>
-            <div class="row btns-post">
-              <p>Comments: <%= post.comments.count %></p>
-              <p>Likes: <%= post.likes.count %></p>
+<main>
+    <div class="single-user container">
+        <section class="user">
+            <img src=<%= @user.photo %> alt="User Photo" class="user-photo">
+            <div class="user-detail">
+                <h2 class="user-name"><%= @user.name%></h2>
+                <h4 class="post-count">Number of posts: <%= @user.posts_counter %> </h4>
             </div>
+        </section>
+        <hr>
+        
+        <section class="posts container">
+  <h3>All Posts from <%= @user.name %></h3>
+  <% @user.posts.includes(comments:[:author]).each do |post| %>
+    
+      <div class="post">
+        <div class="post-content">
+        
+          <h4><a href="/users/<%=@user.id%>/posts/<%=post.id%>"><%= post.title %></a></h4>
+          
+          <p><%= truncate(post.text, length: 200) %></p>
+          <footer class="post-footer">
+          <span class="comment-count">Comments: <%= post.comments_counter %></span>,
+          <span class="like-count">Likes: <%= post.likes_counter %></span>
+        </footer>
+        </div>
+        
+        <div class="comments">
+        <h5>Comments</h5>
+        <% post.comments.each do |comment| %>
+          <div id="single-comment"> 
+            <span> <%= comment.author.name %> : <%= comment.text %></span>
           </div>
-          <ul class="no-style list-comment borded">
-            <% post.comments.each do |comment| %>
-              <li><%= comment.author.name %>: <%= comment.text %></li>
-            <% end %>
-          </ul>
-          <div class="row btns-post">
-            <a href="<%= "/users/#{post.author.id}/posts/#{post.id}" %>" class="no-style">Read more</a>
-          </div>
-        </li>
-      <% end %>
+        <% end %>
+      </div>
+      </div>
+      <button>More Posts</button>
+  <% end %>
+</section>
 
-      <button class="btn-show-post">
-        <a href=<%= "/users/#{@users.id}/posts/new"%> class="no-style">Create A Post</a>
-      </button>
 
-      <a href=<%= "/users/#{@users.id}" %> >
-        <button class="btn-show-post">Back</button>
-      </a>
-    <% end %>
-  </body>
-</html>
+    </div>
+
+</main>
