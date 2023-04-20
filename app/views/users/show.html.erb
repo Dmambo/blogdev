@@ -11,7 +11,8 @@
         <img src="<%= @users.photo %>" alt="User Image" />
     
         <div class="column post-description">
-          <h2><%= @users.name %></h2>
+          <h2>
+            <a href="<%= user_path(@users) %>"><%= @users.name %></a></h2>
           <p class="number-post">Number of post: <%= @users.posts.count %></p>
         </div>
       <% end %>
@@ -30,8 +31,13 @@
           <% User.includes(:posts).each do |user| %>
             <% user.posts.each do |post| %>
               <li class="column borded post">
-                <h3><%= post.title %></h3>
+                <h3>
+                  <a href="<%= user_post_path(user, post) %>">
+                <%= post.title %>
+                  
+                </h3>
                 <p><%= post.text %></p>
+                </a>
                 <div class="row btns-post">
                   <p>Comments: <%= post.comments.count %></p>
                   <p>Likes: <%= post.likes.count %></p>

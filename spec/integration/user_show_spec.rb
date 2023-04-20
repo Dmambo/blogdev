@@ -46,8 +46,13 @@ RSpec.feature 'User post', type: :feature do
   end
 
   scenario 'When I click a user post, it redirects me to that post show page' do
-    # click_link(first_post.title)
-    expect(page).to have_content('First Post')
+    # Add this url to the first post <a href="<%= user_post_path(user, post) %>"> and make it clickable
+    # user.posts.create(title: 'Hello2', text: 'This is my first post')
+    first_post_link = page.find("a[href='#{user_post_path(first_user, first_post)}']")
+    first_post_link.click
+
+    # Check if the page has been redirected to the correct post show page
+    expect(has_current_path?("/users/#{first_user.id}/posts/#{first_post.id}", wait: 5)).to be_truthy
   end
 
   it 'click on post should redirect to show post' do
@@ -59,8 +64,8 @@ RSpec.feature 'User post', type: :feature do
     user.posts.create(title: 'Hello4', text: 'This is my first post')
 
     visit user_path(user)
-
-    expect(page).to have_content('This is my first post')
+    click_link('Hello2')
+    expect(has_current_path?("/users/#{user.id}/posts/#{user.posts.first.id}", wait: 5)).to be_truthy
   end
 end
 # rubocop:enable Metrics/BlockLength
