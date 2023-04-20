@@ -16,8 +16,11 @@
 #
 default: &default
   adapter: postgresql
-  # host: localhost
   encoding: unicode
+  username: postgres
+  password: 12345
+  host: localhost
+  port: 5432
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
@@ -25,18 +28,15 @@ default: &default
 development:
   <<: *default
   database: hellorails_development
-  username: postgres
-  password: Sigmaw0lf
-  timeout: 5000
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
   # the same name as the operating system user running Rails.
-  #username: hellorails
+  # username:
 
   # The password associated with the postgres role (username).
-  #password:
+  # password: "uyh83279y6uhqiwo"
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -62,8 +62,6 @@ development:
 test:
   <<: *default
   database: hellorails_test
-  username: postgres
-  password: Sigmaw0lf
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -88,5 +86,5 @@ test:
 production:
   <<: *default
   database: hellorails_production
-  username: postgres
-  password: Sigmaw0lf
+  username: hellorails
+  password: <%= ENV["RAILS_BLOG_DATABASE_PASSWORD"] %>

@@ -1,6 +1,13 @@
-<main class="flex-center column">
-  <h2>Create a new comment</h2>
-  <%= render partial: "posts/form_new_comment" %>
+<main>
+    <div class="new-comment container">
+        <h2>Add a comment</h2>
+  <%= form_with model: @comment, url: user_post_comments_path(@post) do |form| %>
+    <div class='comment-form'>
+      <%= form.text_area :text, required: true, autofocus: true, placeholder: 'Leave a comment', class: "form-input" %>
+      <%= form.submit "Comment", class: "form-button button" %>
+    </div>
+    
+  <% end %>
+    </div>
+
 </main>
-</body>
-</html>
