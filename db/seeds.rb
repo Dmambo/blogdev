@@ -6,11 +6,13 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-first_user = User.create(name: 'Utsargo Roy', photo: 'https://avatars.githubusercontent.com/u/6623974?v=4',
+first_user = User.create(name: 'ibrahim', photo: 'https://images.pexels.com/photos/15086545/pexels-photo-15086545.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
                          bio: 'Full-Stack Developer')
 
-second_user = User.create(name: 'John Michael Doe',
-                          photo: 'https://media.gettyimages.com/id/1301087492/vector/semi-random-rainbow-colored-60-60-60-triangle-pattern.jpg?s=612x612&w=gi&k=20&c=pb_dh_VF6L5IgOk4rsbfqM7zIjTA4VA3NxZoiqpJMcs=', bio: 'Front-End Developer')
+second_user = User.create(name: 'Damola',
+                          photo: 'https://images.unsplash.com/photo-1600044912120-cbe24508111c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', bio: 'UI/UX Designer')
+                          third_user = User.create(name: 'Tom', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Teacher from Mexico.')
+                          fourth_user = User.create(name: 'Lilly', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Teacher from Poland.')
 
 first_post = Post.create(title: 'First Post', text: 'This is my first post', author_id: first_user.id)
 
