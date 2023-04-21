@@ -9,9 +9,7 @@ class Users::SessionsController < Devise::SessionsController
 
   # POST /users/sign_in
 
-
   # DELETE /users/sign_out
-
 
   protected
 

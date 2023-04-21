@@ -6,11 +6,9 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { maximum: 50 }
   validates :posts_counter, numericality: { greater_than_or_equal_to: 0, only_integer: true }
 
-
   # add devise
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-
 
   def most_recent_posts
     posts.order(created_at: :desc).limit(3)
